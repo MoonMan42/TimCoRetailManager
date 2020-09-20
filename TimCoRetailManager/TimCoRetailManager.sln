@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimCoDataManager", "TimCoDa
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TRMData", "TRMData\TRMData.sqlproj", "{1F971FAC-0EA4-4DCA-A0DF-76AD0D01DC47}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrmWpfUserInterface", "TrmWpfUserInterface\TrmWpfUserInterface.csproj", "{B9311827-ABD9-45E9-8A09-28E5B68389CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{1F971FAC-0EA4-4DCA-A0DF-76AD0D01DC47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F971FAC-0EA4-4DCA-A0DF-76AD0D01DC47}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1F971FAC-0EA4-4DCA-A0DF-76AD0D01DC47}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B9311827-ABD9-45E9-8A09-28E5B68389CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9311827-ABD9-45E9-8A09-28E5B68389CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9311827-ABD9-45E9-8A09-28E5B68389CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9311827-ABD9-45E9-8A09-28E5B68389CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
