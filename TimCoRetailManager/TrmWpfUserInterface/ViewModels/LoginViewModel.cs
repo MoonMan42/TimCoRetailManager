@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using TrmWpfUserInterface.Helpers;
 
 namespace TrmWpfUserInterface.ViewModels
 {
@@ -12,6 +13,13 @@ namespace TrmWpfUserInterface.ViewModels
     {
         private string _userName;
         private string _password;
+
+        private IApiHelper _apiHelper;
+
+        public LoginViewModel(IApiHelper apiHelper)
+        {
+            _apiHelper = apiHelper;
+        }
 
         public string UserName
         {
@@ -53,11 +61,17 @@ namespace TrmWpfUserInterface.ViewModels
             }
         }
 
-        public void LogIn(string userName, string password)
+        public async Task LogIn()
         {
-            MessageBox.Show(":)");
+            try
+            {
+                var result = await _apiHelper.Authenticate(UserName, Password);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex}");
+            }
+
         }
-
-
     }
 }
