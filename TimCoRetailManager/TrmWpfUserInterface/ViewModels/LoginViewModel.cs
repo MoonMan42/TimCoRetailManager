@@ -13,6 +13,8 @@ namespace TrmWpfUserInterface.ViewModels
     {
         private string _userName;
         private string _password;
+        private bool _isErrorVisible;
+        private string _errorMessage;
 
         private IApiHelper _apiHelper;
 
@@ -46,6 +48,31 @@ namespace TrmWpfUserInterface.ViewModels
         }
 
 
+
+        public bool IsErrorVisible
+        {
+            get
+            {
+                bool output = false;
+                if (ErrorMessage?.Length > 0)
+                {
+                    output = true;
+                }
+                return output;
+            }
+        }
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                NotifyOfPropertyChange(() => IsErrorVisible);
+                NotifyOfPropertyChange(() => ErrorMessage);
+            }
+        }
+
         public bool CanLogIn
         {
             get
@@ -63,13 +90,14 @@ namespace TrmWpfUserInterface.ViewModels
 
         public async Task LogIn()
         {
+            ErrorMessage = ""; // cleared out the error message on next try
             try
             {
                 var result = await _apiHelper.Authenticate(UserName, Password);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex}");
+                ErrorMessage = ex.Message;
             }
 
         }
