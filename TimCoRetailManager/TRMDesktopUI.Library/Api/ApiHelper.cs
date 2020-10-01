@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -6,17 +7,21 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using TrmWpfUserInterface.Models;
+using TRMDesktopUI.Library.Models;
 
-namespace TrmWpfUserInterface.Helpers
+namespace TRMDesktopUI.Library.Api
 {
     public class ApiHelper : IApiHelper
     {
         private HttpClient apiClient { get; set; }
 
-        public ApiHelper()
+        private ILoggedInUserModel _loggedInUser;
+
+        public ApiHelper(ILoggedInUserModel loggedInUser)
         {
             InitializeClient();
+
+            _loggedInUser = loggedInUser;
         }
 
 
@@ -45,6 +50,33 @@ namespace TrmWpfUserInterface.Helpers
                 {
                     var result = await response.Content.ReadAsAsync<AuthenticatedUser>();
                     return result;
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+        public async Task GetLoggedInUserInfo(string token)
+        {
+            apiClient.DefaultRequestHeaders.Clear();
+            apiClient.DefaultRequestHeaders.Accept.Clear();
+            apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            apiClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+            using (HttpResponseMessage response = await apiClient.GetAsync("/api/User"))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsAsync<LoggedInUserModel>();
+
+                    _loggedInUser.CreatedDate = result.CreatedDate;
+                    _loggedInUser.Email = result.Email;
+                    _loggedInUser.FirstName = result.FirstName;
+                    _loggedInUser.Id = result.Id;
+                    _loggedInUser.LastName = result.LastName;
+                    _loggedInUser.Token = token;
                 }
                 else
                 {

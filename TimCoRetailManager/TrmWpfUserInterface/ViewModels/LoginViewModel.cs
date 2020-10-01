@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TrmWpfUserInterface.Helpers;
+using TRMDesktopUI.Library.Api;
 
 namespace TrmWpfUserInterface.ViewModels
 {
@@ -93,7 +93,12 @@ namespace TrmWpfUserInterface.ViewModels
             ErrorMessage = ""; // cleared out the error message on next try
             try
             {
+
                 var result = await _apiHelper.Authenticate(UserName, Password);
+
+                //Capture More info about the user
+                await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
+
             }
             catch (Exception ex)
             {

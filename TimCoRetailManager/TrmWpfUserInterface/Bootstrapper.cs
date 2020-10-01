@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using TRMDesktopUI.Library.Api;
+using TRMDesktopUI.Library.Models;
 using TrmWpfUserInterface.Helpers;
 using TrmWpfUserInterface.ViewModels;
 
@@ -33,6 +35,7 @@ namespace TrmWpfUserInterface
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<ILoggedInUserModel, LoggedInUserModel>()
                 .Singleton<IApiHelper, ApiHelper>();
 
             GetType().Assembly.GetTypes()
