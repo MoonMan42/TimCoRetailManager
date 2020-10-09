@@ -31,8 +31,7 @@
         
         <!--Header -->
         <TextBlock Text="Sales Page" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6"
-           FontSize="48" TextAlignment="Center" 
-                   Margin="0 0 0 20"/>
+           FontSize="48" Margin="0 0 0 20"/>
         
         <!-- Column 0 - Product list -->
         <TextBlock Text="Items:" Grid.Row="1" Grid.Column="0"/>

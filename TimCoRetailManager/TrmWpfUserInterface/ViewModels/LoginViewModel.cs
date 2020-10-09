@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using TRMDesktopUI.Library.Api;
+using TrmWpfUserInterface.EventModels;
 
 namespace TrmWpfUserInterface.ViewModels
 {
@@ -17,10 +18,12 @@ namespace TrmWpfUserInterface.ViewModels
         private string _errorMessage;
 
         private IApiHelper _apiHelper;
+        private IEventAggregator _events;
 
-        public LoginViewModel(IApiHelper apiHelper)
+        public LoginViewModel(IApiHelper apiHelper, IEventAggregator events)
         {
             _apiHelper = apiHelper;
+            _events = events;
         }
 
         public string UserName
@@ -98,6 +101,9 @@ namespace TrmWpfUserInterface.ViewModels
 
                 //Capture More info about the user
                 await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
+
+                // open new page from ShellViewModel
+                _events.PublishOnUIThread(new LogOnEvent());
 
             }
             catch (Exception ex)
